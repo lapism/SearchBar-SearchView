@@ -115,6 +115,7 @@ dependencies {
 
 ### Layout example
 For now it must be in CoordinatorLayout !!!
+Also add android:stateListAnimator="@null" to AppBarLayout.
 
 ```xml
         <?xml version="1.0" encoding="utf-8"?>
@@ -124,7 +125,10 @@ For now it must be in CoordinatorLayout !!!
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <!-- android:stateListAnimator="@null" temporary fix -->
             <com.google.android.material.appbar.AppBarLayout
+                android:stateListAnimator="@null"
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
