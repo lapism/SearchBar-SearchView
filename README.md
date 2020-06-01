@@ -28,12 +28,14 @@ https://bintray.com/lapism/maven/search
 
 ## Usage
 minSdkVersion 21  
-targetSdkVersion 29  
+targetSdkVersion 29
+Java 1.8
+Kotlin 1.8
 
 Add the dependency to your gradle file:
 ```groovy
 dependencies {
-    implementation 'com.lapism:search:2.1.2@aar'
+    implementation 'com.lapism:search:2.1.3@aar'
 }
 ```
 
@@ -131,14 +133,13 @@ For now it must be in CoordinatorLayout !!!
             </com.google.android.material.appbar.AppBarLayout>
 
             <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/viewPager2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:overScrollMode="never"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
             <com.lapism.search.widget.MaterialSearchView
-                android:id="@+id/materialSearchView"
+                android:id="@+id/material_search_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -158,6 +159,9 @@ For now it must be in CoordinatorLayout !!!
 ```
 
 ## Changelog
+**2.1.3**
+- margin null type
+
 **2.1.2**
 - fixed transition animation
 

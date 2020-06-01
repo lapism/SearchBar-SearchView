@@ -133,7 +133,7 @@ abstract class SearchLayout @JvmOverloads constructor(
             val top: Int
             val right: Int
             val bottom: Int
-            val params = mMaterialCardView?.layoutParams as LayoutParams
+            val params = mMaterialCardView?.layoutParams as LayoutParams?
 
             when (margins) {
                 Margins.NO_FOCUS -> {
@@ -145,9 +145,9 @@ abstract class SearchLayout @JvmOverloads constructor(
                         context.resources.getDimensionPixelSize(R.dimen.search_margins_left_right)
                     bottom = 0
 
-                    params.width = ViewGroup.LayoutParams.MATCH_PARENT
-                    params.height = ViewGroup.LayoutParams.WRAP_CONTENT
-                    params.setMargins(left, top, right, bottom)
+                    params?.width = ViewGroup.LayoutParams.MATCH_PARENT
+                    params?.height = ViewGroup.LayoutParams.WRAP_CONTENT
+                    params?.setMargins(left, top, right, bottom)
                     mMaterialCardView?.layoutParams = params
                 }
                 Margins.FOCUS -> {
@@ -160,9 +160,9 @@ abstract class SearchLayout @JvmOverloads constructor(
                     bottom =
                         context.resources.getDimensionPixelSize(R.dimen.search_margins_focus)
 
-                    params.width = ViewGroup.LayoutParams.MATCH_PARENT
-                    params.height = ViewGroup.LayoutParams.MATCH_PARENT
-                    params.setMargins(left, top, right, bottom)
+                    params?.width = ViewGroup.LayoutParams.MATCH_PARENT
+                    params?.height = ViewGroup.LayoutParams.MATCH_PARENT
+                    params?.setMargins(left, top, right, bottom)
                     mMaterialCardView?.layoutParams = params
                 }
             }
@@ -175,25 +175,25 @@ abstract class SearchLayout @JvmOverloads constructor(
 
     // *********************************************************************************************
     protected fun init() {
-        mSearchAnimationLayout = findViewById(R.id.search_animationLayout)
+        mSearchAnimationLayout = findViewById(R.id.search_animation_layout)
 
-        mLinearLayout = findViewById(R.id.search_linearLayout)
+        mLinearLayout = findViewById(R.id.search_linear_layout)
 
-        mImageViewNavigation = findViewById(R.id.search_imageView_navigation)
+        mImageViewNavigation = findViewById(R.id.search_image_view_navigation)
         mImageViewNavigation?.setOnClickListener(this)
 
-        mImageViewMic = findViewById(R.id.search_imageView_mic)
+        mImageViewMic = findViewById(R.id.search_image_view_mic)
         mImageViewMic?.setOnClickListener(this)
 
-        mImageViewClear = findViewById(R.id.search_imageView_clear)
+        mImageViewClear = findViewById(R.id.search_image_view_clear)
         mImageViewClear?.visibility = View.GONE
         mImageViewClear?.setOnClickListener(this)
 
-        mImageViewMenu = findViewById(R.id.search_imageView_menu)
+        mImageViewMenu = findViewById(R.id.search_image_view_menu)
         mImageViewMenu?.visibility = View.GONE
         mImageViewMenu?.setOnClickListener(this)
 
-        mSearchEditText = findViewById(R.id.search_searchEditText)
+        mSearchEditText = findViewById(R.id.search_search_edit_text)
         mSearchEditText?.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
 
@@ -219,7 +219,7 @@ abstract class SearchLayout @JvmOverloads constructor(
             }
         }
 
-        mRecyclerView = findViewById(R.id.search_recyclerView)
+        mRecyclerView = findViewById(R.id.search_recycler_view)
         mRecyclerView?.visibility = View.GONE
         mRecyclerView?.layoutManager = LinearLayoutManager(context)
         mRecyclerView?.isNestedScrollingEnabled = false
@@ -246,7 +246,7 @@ abstract class SearchLayout @JvmOverloads constructor(
             )
         )
 
-        mMaterialCardView = findViewById(R.id.search_materialCardView)
+        mMaterialCardView = findViewById(R.id.search_material_card_view)
         margins = Margins.NO_FOCUS
 
         isClickable = true

@@ -2,7 +2,7 @@ apply plugin: 'com.jfrog.bintray'
 apply plugin: 'maven-publish'
 
 group 'com.lapism'
-version '2.1.2'
+version '2.1.3'
 
 /*project.ext {
     gitUrl = 'https://github.com/lapism/search.git'
