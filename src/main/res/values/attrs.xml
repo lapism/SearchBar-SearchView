@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="MaterialSearchView">
+        <attr name="search_navigation_icon_support" format="enum">
+            <enum name="none" value="1000" />
+            <enum name="menu" value="1001" />
+            <enum name="arrow" value="1002" />
+            <enum name="search" value="1003" />
+        </attr>
+    </declare-styleable>
+
+</resources>

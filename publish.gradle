@@ -1,0 +1,68 @@
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'maven-publish'
+
+group 'com.lapism'
+version '2.1.2'
+
+/*project.ext {
+    gitUrl = 'https://github.com/lapism/search.git'
+}*/
+
+def properties = new Properties()
+properties.load(new FileInputStream("local.properties"))
+
+bintray {
+    user = 'lapism'
+    key = properties.getProperty("bintray.apikey")
+    publications = ['Release']
+    configurations = ['archives']
+    override = true
+    publish = false
+
+    pkg {
+        repo = 'maven'
+        name = 'search'
+        userOrg = 'lapism'
+        licenses = ['Apache-2.0']
+        vcsUrl = 'https://github.com/lapism/search.git'
+
+        description = 'Material Design Search component for Android'
+        publicDownloadNumbers = false
+        /*websiteUrl = 'https://github.com/bintray/gradle-bintray-plugin'
+        issueTrackerUrl = 'https://github.com/bintray/gradle-bintray-plugin/issues'
+        vcsUrl = 'https://github.com/bintray/gradle-bintray-plugin.git'*/
+
+        version {
+            name = this.version
+            desc = "Version ${this.version}"
+            released = new Date()
+            vcsTag = this.version
+        }
+    }
+}
+
+project.afterEvaluate {
+    publishing {
+        publications {
+            Release(MavenPublication) {
+                pom.withXml {
+                    def dependenciesNode = asNode()['dependencies'][0] ?: asNode().appendNode('dependencies')
+                    configurations.implementation.allDependencies.each {
+                        if (it.name != 'unspecified') {
+                            def dependencyNode = dependenciesNode.appendNode('dependency')
+                            dependencyNode.appendNode('groupId', it.group)
+                            dependencyNode.appendNode('artifactId', it.name)
+                            dependencyNode.appendNode('version', it.version)
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// ./gradlew (clean) bintrayUpload
+
+// https://github.com/bintray/gradle-bintray-plugin
+
+// apply from: 'https://raw.githubusercontent.com/lapism/gradle-maven-plugin/master/gradle-mavenizer.gradle'
