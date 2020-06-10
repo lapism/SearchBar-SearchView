@@ -17,6 +17,7 @@ class SearchBehavior<S : SearchLayout> : CoordinatorLayout.Behavior<S>() {
         dependency: View
     ): Boolean {
         return if (dependency is AppBarLayout) {
+            // todo statelist animator, as?
             true
         } else
             if (dependency is LinearLayout || dependency is BottomNavigationView) {

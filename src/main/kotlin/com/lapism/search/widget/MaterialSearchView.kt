@@ -141,6 +141,8 @@ class MaterialSearchView @JvmOverloads constructor(
 
     fun setTransitionDuration(duration: Long) {
         mTransition.setDuration(duration)
+        mSearchAnimationLayout?.layoutTransition = mTransition
+        mMaterialCardView?.layoutTransition = mTransition
     }
 
 }
