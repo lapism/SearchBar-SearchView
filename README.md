@@ -28,14 +28,14 @@ https://bintray.com/lapism/maven/search
 
 ## Usage
 minSdkVersion 21  
-targetSdkVersion 29
+targetSdkVersion 30
 Java 1.8
 Kotlin 1.8
 
 Add the dependency to your gradle file:
 ```groovy
 dependencies {
-    implementation 'com.lapism:search:2.1.3@aar'
+    implementation 'com.lapism:search:2.2.0@aar'
 }
 ```
 
@@ -114,7 +114,7 @@ dependencies {
 ```
 
 ### Layout example
-For now it must be in CoordinatorLayout !!!
+It must be in CoordinatorLayout.
 Also add android:stateListAnimator="@null" to AppBarLayout.
 
 ```xml
@@ -127,10 +127,10 @@ Also add android:stateListAnimator="@null" to AppBarLayout.
 
             <!-- android:stateListAnimator="@null" temporary fix -->
             <com.google.android.material.appbar.AppBarLayout
-                android:stateListAnimator="@null"
-
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+
+                android:stateListAnimator="@null">
 
                 <include layout="@layout/include_material_toolbar" />
 
@@ -163,6 +163,12 @@ Also add android:stateListAnimator="@null" to AppBarLayout.
 ```
 
 ## Changelog
+**2.2.0**
+- API 30
+- fixed bottom margin bug with elevation more than 0dp
+- dependencies update
+- fixed transition animation on API 30
+
 **2.1.3**
 - margin null type
 
@@ -193,7 +199,7 @@ Also add android:stateListAnimator="@null" to AppBarLayout.
 - new public methods
 
 **1.0.0**
-- first release
+- first test release
 
 ## Author
 

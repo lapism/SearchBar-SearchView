@@ -24,7 +24,7 @@
     <dimen name="search_elevation_focus">0dp</dimen>
 
     <dimen name="search_margins_left_right">16dp</dimen>
-    <dimen name="search_margins_top">8dp</dimen>
+    <dimen name="search_margins_top_bottom">8dp</dimen>
     <dimen name="search_margins_focus">0dp</dimen>
 
 </resources>

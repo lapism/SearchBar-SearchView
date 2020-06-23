@@ -28,6 +28,7 @@ import com.google.android.material.card.MaterialCardView
 import com.lapism.search.R
 
 
+@Suppress("MemberVisibilityCanBePrivate")
 abstract class SearchLayout @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
@@ -66,9 +67,9 @@ abstract class SearchLayout @JvmOverloads constructor(
 
     // *********************************************************************************************
     protected var mSearchAnimationLayout: LinearLayout? = null
-    protected var mImageViewMenu: ImageView? = null
+    private var mImageViewMenu: ImageView? = null
     protected var mRecyclerView: RecyclerView? = null
-    protected var mLinearLayout: LinearLayout? = null
+    private var mLinearLayout: LinearLayout? = null
     protected var mMaterialCardView: MaterialCardView? = null
     protected var mSearchEditText: SearchEditText? = null
     protected var mViewShadow: View? = null
@@ -140,10 +141,11 @@ abstract class SearchLayout @JvmOverloads constructor(
                     left =
                         context.resources.getDimensionPixelSize(R.dimen.search_margins_left_right)
                     top =
-                        context.resources.getDimensionPixelSize(R.dimen.search_margins_top)
+                        context.resources.getDimensionPixelSize(R.dimen.search_margins_top_bottom)
                     right =
                         context.resources.getDimensionPixelSize(R.dimen.search_margins_left_right)
-                    bottom = 0
+                    bottom =
+                        context.resources.getDimensionPixelSize(R.dimen.search_margins_top_bottom)
 
                     params?.width = ViewGroup.LayoutParams.MATCH_PARENT
                     params?.height = ViewGroup.LayoutParams.WRAP_CONTENT

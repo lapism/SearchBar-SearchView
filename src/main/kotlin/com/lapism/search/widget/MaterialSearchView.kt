@@ -12,6 +12,7 @@ import com.lapism.search.R
 import com.lapism.search.internal.SearchLayout
 
 
+@Suppress("MemberVisibilityCanBePrivate")
 class MaterialSearchView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
