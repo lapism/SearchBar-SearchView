@@ -26,6 +26,10 @@ https://bintray.com/lapism/maven/search
        src="https://github.com/lapism/search/blob/master/images/paypal.png" />
 </a>
 
+## Apps with this library
+
+* [LapIcons](https://play.google.com/store/apps/details?id=com.lapism.lapicons)
+
 ## Sdk and usage
 minSdkVersion 21, targetSdkVersion 30, Java 1.8, Kotlin 1.8
 
@@ -189,10 +193,6 @@ Also add android:stateListAnimator="@null" to the AppBarLayout.
 
 **1.0.0**
 - first test release
-
-## Apps with this library
-
-* [LapIcons](https://play.google.com/store/apps/details?id=com.lapism.lapicons)
 
 ## Author
 
