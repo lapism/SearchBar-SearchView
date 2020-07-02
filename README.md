@@ -27,7 +27,7 @@ https://bintray.com/lapism/maven/search
 </a>
 
 ## Usage
-minSdkVersion 21  
+minSdkVersion 21
 targetSdkVersion 30
 Java 1.8
 Kotlin 1.8
