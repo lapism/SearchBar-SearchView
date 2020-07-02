@@ -26,11 +26,8 @@ https://bintray.com/lapism/maven/search
        src="https://github.com/lapism/search/blob/master/images/paypal.png" />
 </a>
 
-## Usage
-minSdkVersion 21
-targetSdkVersion 30
-Java 1.8
-Kotlin 1.8
+## Sdk and usage
+minSdkVersion 21, targetSdkVersion 30, Java 1.8, Kotlin 1.8
 
 Add the dependency to your gradle file:
 ```groovy
