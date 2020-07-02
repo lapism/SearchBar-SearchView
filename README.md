@@ -51,7 +51,7 @@ dependencies {
             navigationIconSupport = SearchLayout.NavigationIconSupport.SEARCH
             setOnNavigationClickListener(object : SearchLayout.OnNavigationClickListener {
                 override fun onNavigationClick() {
-                    binding.materialSearchView.requestFocus()
+                    materialSearchView.requestFocus()
                 }
             })
 
