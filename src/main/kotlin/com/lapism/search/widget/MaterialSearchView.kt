@@ -5,6 +5,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.LinearLayout
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.google.android.material.card.MaterialCardView
@@ -12,7 +13,7 @@ import com.lapism.search.R
 import com.lapism.search.internal.SearchLayout
 
 
-@Suppress("MemberVisibilityCanBePrivate")
+@Suppress("MemberVisibilityCanBePrivate", "unused")
 class MaterialSearchView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
@@ -51,7 +52,13 @@ class MaterialSearchView @JvmOverloads constructor(
                 view: View?,
                 transitionType: Int
             ) {
-
+                if (view is MaterialCardView) {
+                    if (hasFocus()) {
+                        mOnFocusChangeListener?.onFocusChange(true)
+                        mImageViewMenu?.visibility = View.GONE
+                        mImageViewMic?.visibility = View.VISIBLE
+                    }
+                }
             }
 
             override fun endTransition(
@@ -68,11 +75,18 @@ class MaterialSearchView @JvmOverloads constructor(
                         showKeyboard()
                         mSearchAnimationLayout?.layoutTransition = null
                         mMaterialCardView?.layoutTransition = null
+                        findViewById<FrameLayout>(R.id.search_root).layoutTransition = null
+                    } else {
+                        mOnFocusChangeListener?.onFocusChange(false)
+                        mImageViewMic?.visibility = View.GONE
+                        mImageViewMenu?.visibility = View.VISIBLE
+                        hideKeyboard()
                     }
                 }
             }
         })
 
+        findViewById<FrameLayout>(R.id.search_root).layoutTransition = mTransition
         mSearchAnimationLayout?.layoutTransition = mTransition
         mMaterialCardView?.layoutTransition = mTransition
 
@@ -100,18 +114,21 @@ class MaterialSearchView @JvmOverloads constructor(
             context.resources.getDimensionPixelSize(R.dimen.search_elevation_focus).toFloat()
         setBackgroundStrokeWidth(context.resources.getDimensionPixelSize(R.dimen.search_stroke_width_focus))
 
-        mViewShadow?.visibility = View.VISIBLE
-        mOnFocusChangeListener?.onFocusChange(true)
-        setLayoutHeight(context.resources.getDimensionPixelSize(R.dimen.search_layout_height_focus))
         margins = Margins.FOCUS
 
+        setLayoutHeight(context.resources.getDimensionPixelSize(R.dimen.search_layout_height_focus))
+
+        mViewShadow?.visibility = View.VISIBLE
         mViewDivider?.visibility = View.VISIBLE
         mRecyclerView?.visibility = View.VISIBLE
     }
 
     override fun removeFocus() {
+        mViewShadow?.visibility = View.GONE
+
         mSearchAnimationLayout?.layoutTransition = mTransition
         mMaterialCardView?.layoutTransition = mTransition
+        findViewById<FrameLayout>(R.id.search_root).layoutTransition = mTransition
 
         val params = mSearchEditText?.layoutParams as LinearLayout.LayoutParams
         params.setMargins(0, 0, 0, 0)
@@ -121,15 +138,12 @@ class MaterialSearchView @JvmOverloads constructor(
         setBackgroundStrokeWidth(mStrokeWidth)
         setBackgroundRadius(mRadius)
 
-        mViewShadow?.visibility = View.GONE
-        mOnFocusChangeListener?.onFocusChange(false)
-        setLayoutHeight(context.resources.getDimensionPixelSize(R.dimen.search_layout_height))
         margins = Margins.NO_FOCUS
+
+        setLayoutHeight(context.resources.getDimensionPixelSize(R.dimen.search_layout_height))
 
         mRecyclerView?.visibility = View.GONE
         mViewDivider?.visibility = View.GONE
-
-        hideKeyboard()
     }
 
     override fun getBehavior(): CoordinatorLayout.Behavior<*> {

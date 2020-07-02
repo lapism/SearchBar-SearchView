@@ -36,8 +36,8 @@ class SearchEditText : AppCompatEditText {
     }
 
     override fun clearFocus() {
-        text?.clear()
         super.clearFocus()
+        text?.clear()
     }
 
 }

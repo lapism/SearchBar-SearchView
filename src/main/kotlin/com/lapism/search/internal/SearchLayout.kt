@@ -66,18 +66,18 @@ abstract class SearchLayout @JvmOverloads constructor(
     }
 
     // *********************************************************************************************
-    protected var mSearchAnimationLayout: LinearLayout? = null
-    private var mImageViewMenu: ImageView? = null
+    protected var mImageViewMenu: ImageView? = null
+    protected var mImageViewMic: ImageView? = null
     protected var mRecyclerView: RecyclerView? = null
-    private var mLinearLayout: LinearLayout? = null
+    protected var mSearchAnimationLayout: LinearLayout? = null
     protected var mMaterialCardView: MaterialCardView? = null
     protected var mSearchEditText: SearchEditText? = null
     protected var mViewShadow: View? = null
     protected var mViewDivider: View? = null
     protected var mOnFocusChangeListener: OnFocusChangeListener? = null
 
+    private var mLinearLayout: LinearLayout? = null
     private var mImageViewNavigation: ImageView? = null
-    private var mImageViewMic: ImageView? = null
     private var mImageViewClear: ImageView? = null
     private var mOnQueryTextListener: OnQueryTextListener? = null
     private var mOnNavigationClickListener: OnNavigationClickListener? = null
@@ -185,6 +185,7 @@ abstract class SearchLayout @JvmOverloads constructor(
         mImageViewNavigation?.setOnClickListener(this)
 
         mImageViewMic = findViewById(R.id.search_image_view_mic)
+        mImageViewMic?.visibility = View.GONE
         mImageViewMic?.setOnClickListener(this)
 
         mImageViewClear = findViewById(R.id.search_image_view_clear)
@@ -192,7 +193,6 @@ abstract class SearchLayout @JvmOverloads constructor(
         mImageViewClear?.setOnClickListener(this)
 
         mImageViewMenu = findViewById(R.id.search_image_view_menu)
-        mImageViewMenu?.visibility = View.GONE
         mImageViewMenu?.setOnClickListener(this)
 
         mSearchEditText = findViewById(R.id.search_search_edit_text)
@@ -290,10 +290,6 @@ abstract class SearchLayout @JvmOverloads constructor(
     }
 
     // *********************************************************************************************
-    fun setMicIconVisibility(visibility: Int) {
-        mImageViewMic?.visibility = visibility
-    }
-
     fun setMicIconImageResource(@DrawableRes resId: Int) {
         mImageViewMic?.setImageResource(resId)
     }
@@ -352,10 +348,6 @@ abstract class SearchLayout @JvmOverloads constructor(
     }
 
     // *********************************************************************************************
-    fun setMenuIconVisibility(visibility: Int) {
-        mImageViewMenu?.visibility = visibility
-    }
-
     fun setMenuIconImageResource(@DrawableRes resId: Int) {
         mImageViewMenu?.setImageResource(resId)
     }
@@ -549,10 +541,6 @@ abstract class SearchLayout @JvmOverloads constructor(
     }
 
     // *********************************************************************************************
-    fun setBackgroundColorViewOnly(@ColorInt color: Int) {
-        mLinearLayout?.setBackgroundColor(color)
-    }
-
     fun setDividerColor(@ColorInt color: Int) {
         mViewDivider?.setBackgroundColor(color)
     }
@@ -610,11 +598,6 @@ abstract class SearchLayout @JvmOverloads constructor(
     }
 
     // *********************************************************************************************
-    protected fun getLayoutHeight(): Int {
-        val params = mLinearLayout?.layoutParams
-        return params?.height!!
-    }
-
     protected fun setLayoutHeight(height: Int) {
         val params = mLinearLayout?.layoutParams
         params?.height = height
@@ -624,16 +607,20 @@ abstract class SearchLayout @JvmOverloads constructor(
 
     // *********************************************************************************************
     private fun onTextChanged(newText: CharSequence) {
-        if (mOnQueryTextListener != null) {
-            mOnQueryTextListener?.onQueryTextChange(newText)
-        }
-
         if (!TextUtils.isEmpty(newText)) {
             mImageViewMic?.visibility = View.GONE
             mImageViewClear?.visibility = View.VISIBLE
         } else {
             mImageViewClear?.visibility = View.GONE
-            mImageViewMic?.visibility = View.VISIBLE
+            if (mSearchEditText?.hasFocus()!!) {
+                mImageViewMic?.visibility = View.VISIBLE
+            } else {
+                mImageViewMic?.visibility = View.GONE
+            }
+        }
+
+        if (mOnQueryTextListener != null) {
+            mOnQueryTextListener?.onQueryTextChange(newText)
         }
     }
 
@@ -650,7 +637,9 @@ abstract class SearchLayout @JvmOverloads constructor(
     override fun onSaveInstanceState(): Parcelable? {
         val superState = super.onSaveInstanceState()
         val ss = SearchViewSavedState(superState!!)
-        ss.query = mSearchEditText?.text
+        if (mSearchEditText?.text!!.isNotEmpty()) {
+            ss.query = mSearchEditText?.text
+        }
         ss.hasFocus = mSearchEditText?.hasFocus()!!
         return ss
     }

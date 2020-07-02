@@ -51,7 +51,7 @@ dependencies {
             navigationIconSupport = SearchLayout.NavigationIconSupport.SEARCH
             setOnNavigationClickListener(object : SearchLayout.OnNavigationClickListener {
                 override fun onNavigationClick() {
-                    materialSearchView.requestFocus()
+                    binding.materialSearchView.requestFocus()
                 }
             })
 
@@ -67,13 +67,12 @@ dependencies {
                 }
             })
 
-            setMicIconImageResource(R.drawable.ic_mic)
-            setMicIconVisibility(View.GONE)
+            setMicIconImageResource(R.drawable.ic_outline_mic_none_24dp)
             setOnMicClickListener(object : SearchLayout.OnMicClickListener {
                 override fun onMicClick() {
-                    if (SearchUtils.isVoiceSearchAvailable(this@IconsActivity)) {
+                    if (SearchUtils.isVoiceSearchAvailable(this@MainActivity)) {
                         SearchUtils.setVoiceSearch(
-                            this@IconsActivity,
+                            this@MainActivity,
                             getString(R.string.speak)
                         )
                     }
@@ -81,17 +80,17 @@ dependencies {
             })
 
             setMenuIconImageResource(R.drawable.layer_list_settings)
-            setMenuIconVisibility(View.VISIBLE)
             setOnMenuClickListener(object : SearchLayout.OnMenuClickListener {
                 override fun onMenuClick() {
 
                 }
             })
+
             elevation = 0f
             setBackgroundStrokeWidth(resources.getDimensionPixelSize(R.dimen.search_stroke_width))
             setBackgroundStrokeColor(
                 ContextCompat.getColor(
-                    this@IconsActivity,
+                    this@MainActivity,
                     R.color.divider
                 )
             )
@@ -99,14 +98,8 @@ dependencies {
                 override fun onFocusChange(hasFocus: Boolean) {
                     if (hasFocus) {
                         navigationIconSupport = SearchLayout.NavigationIconSupport.ARROW
-
-                        setMenuIconVisibility(View.GONE)
-                        setMicIconVisibility(View.VISIBLE)
                     } else {
                         navigationIconSupport = SearchLayout.NavigationIconSupport.SEARCH
-
-                        setMenuIconVisibility(View.VISIBLE)
-                        setMicIconVisibility(View.GONE)
                     }
                 }
             })
@@ -114,8 +107,8 @@ dependencies {
 ```
 
 ### Layout example
-It must be in CoordinatorLayout.
-Also add android:stateListAnimator="@null" to AppBarLayout.
+It must be in the CoordinatorLayout.
+Also add android:stateListAnimator="@null" to the AppBarLayout.
 
 ```xml
         <?xml version="1.0" encoding="utf-8"?>
@@ -125,7 +118,6 @@ Also add android:stateListAnimator="@null" to AppBarLayout.
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <!-- android:stateListAnimator="@null" temporary fix -->
             <com.google.android.material.appbar.AppBarLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -200,6 +192,10 @@ Also add android:stateListAnimator="@null" to AppBarLayout.
 
 **1.0.0**
 - first test release
+
+## Apps with this library
+
+* [LapIcons](https://play.google.com/store/apps/details?id=com.lapism.lapicons)
 
 ## Author
 
