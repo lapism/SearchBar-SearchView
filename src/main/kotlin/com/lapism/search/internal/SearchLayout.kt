@@ -71,6 +71,7 @@ abstract class SearchLayout @JvmOverloads constructor(
     protected var mRecyclerView: RecyclerView? = null
     protected var mSearchAnimationLayout: LinearLayout? = null
     protected var mMaterialCardView: MaterialCardView? = null
+    protected var mFrameLayout: FrameLayout? = null
     protected var mSearchEditText: SearchEditText? = null
     protected var mViewShadow: View? = null
     protected var mViewDivider: View? = null
@@ -250,6 +251,8 @@ abstract class SearchLayout @JvmOverloads constructor(
 
         mMaterialCardView = findViewById(R.id.search_material_card_view)
         margins = Margins.NO_FOCUS
+
+        mFrameLayout = findViewById(R.id.search_root)
 
         isClickable = true
         isFocusable = true

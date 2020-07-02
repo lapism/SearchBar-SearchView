@@ -5,7 +5,6 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
 import android.widget.LinearLayout
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.google.android.material.card.MaterialCardView
@@ -75,7 +74,7 @@ class MaterialSearchView @JvmOverloads constructor(
                         showKeyboard()
                         mSearchAnimationLayout?.layoutTransition = null
                         mMaterialCardView?.layoutTransition = null
-                        findViewById<FrameLayout>(R.id.search_root).layoutTransition = null
+                        mFrameLayout?.layoutTransition = null
                     } else {
                         mOnFocusChangeListener?.onFocusChange(false)
                         mImageViewMic?.visibility = View.GONE
@@ -86,9 +85,9 @@ class MaterialSearchView @JvmOverloads constructor(
             }
         })
 
-        findViewById<FrameLayout>(R.id.search_root).layoutTransition = mTransition
         mSearchAnimationLayout?.layoutTransition = mTransition
         mMaterialCardView?.layoutTransition = mTransition
+        mFrameLayout?.layoutTransition = mTransition
 
         // TODO - MORE ATTRIBUTTES IN THE FUTURE RELEASE
         setClearIconImageResource(R.drawable.search_ic_outline_clear_24px)
@@ -128,7 +127,7 @@ class MaterialSearchView @JvmOverloads constructor(
 
         mSearchAnimationLayout?.layoutTransition = mTransition
         mMaterialCardView?.layoutTransition = mTransition
-        findViewById<FrameLayout>(R.id.search_root).layoutTransition = mTransition
+        mFrameLayout?.layoutTransition = mTransition
 
         val params = mSearchEditText?.layoutParams as LinearLayout.LayoutParams
         params.setMargins(0, 0, 0, 0)
