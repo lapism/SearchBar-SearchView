@@ -17,15 +17,6 @@ https://bintray.com/lapism/maven/search
 
 ![Search](https://github.com/lapism/Search/blob/master/images/search.png)
 
-## Donations
-
-`Please support me!`
-
-<a href="https://www.paypal.me/lapism">
-  <img alt="Paypal"
-       src="https://github.com/lapism/search/blob/master/images/paypal.png" />
-</a>
-
 ## Apps with this library
 
 * [LapIcons](https://play.google.com/store/apps/details?id=com.lapism.lapicons)
