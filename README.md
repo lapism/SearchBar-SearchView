@@ -173,7 +173,6 @@ Also add android:stateListAnimator="@null" to the AppBarLayout.
 - added public.xml file
 
 **2.0.0**
-- NOT COMPATIBLE WITH 1.0 !!!
 - SearchMenu item removed
 - SearchView renamed to MaterialSearchView
 - changed NavigationIconSupport properties
@@ -181,9 +180,6 @@ Also add android:stateListAnimator="@null" to the AppBarLayout.
 - fixed bugs
 - improved open and hide animation
 - new public methods
-
-**1.0.0**
-- first test release
 
 ## Author
 
