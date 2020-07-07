@@ -21,7 +21,7 @@ https://bintray.com/lapism/maven/search
 
 * [LapIcons](https://play.google.com/store/apps/details?id=com.lapism.lapicons)
 
-## Sdk and usage
+## Sdk
 minSdkVersion 21, targetSdkVersion 30, Java 1.8, Kotlin 1.8
 
 Add the dependency to your gradle file:
@@ -31,7 +31,7 @@ dependencies {
 }
 ```
 
-## SearchView
+## Usage
 
 ### Code example
 ```java
