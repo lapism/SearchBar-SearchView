@@ -1,3 +1,5 @@
+@file:Suppress("MemberVisibilityCanBePrivate")
+
 package com.lapism.search.widget
 
 import android.animation.LayoutTransition
@@ -13,6 +15,7 @@ import com.lapism.search.R
 import com.lapism.search.internal.SearchLayout
 
 
+@Suppress("unused")
 class MaterialSearchView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
@@ -158,12 +161,12 @@ class MaterialSearchView @JvmOverloads constructor(
 
         val imeOptions = a.getInt(R.styleable.MaterialSearchView_android_imeOptions, -1)
         if (imeOptions != -1) {
-            setTextImeOptions(imeOptions);
+            setTextImeOptions(imeOptions)
         }
 
         val inputType = a.getInt(R.styleable.MaterialSearchView_android_inputType, -1)
         if (inputType != -1) {
-            setTextInputType(inputType);
+            setTextInputType(inputType)
         }
 
         a.recycle()

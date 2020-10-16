@@ -27,6 +27,7 @@ import com.google.android.material.card.MaterialCardView
 import com.lapism.search.R
 
 
+@Suppress("unused")
 abstract class SearchLayout @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
