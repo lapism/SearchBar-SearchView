@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <public name="search_navigation_icon_support" type="attr" />
+    <public name="search_navigationIconSupport" type="attr" />
+    <public name="search_navigationIcon" type="attr" />
+    <public name="search_clearIcon" type="attr" />
+    <public name="search_micIcon" type="attr" />
+    <public name="search_textHint" type="attr" />
+    <public name="search_strokeColor" type="attr" />
+    <public name="search_strokeWidth" type="attr" />
+    <public name="search_dividerColor" type="attr" />
+    <public name="search_shadowColor" type="attr" />
+    <public name="search_transitionDuration" type="attr" />
+    <public name="search_radius" type="attr" />
 
 </resources>

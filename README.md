@@ -23,12 +23,12 @@ https://bintray.com/lapism/maven/search
 
 ## Api
 
-minSdkVersion = 21
-targetSdkVersion = 30
-Java = 1.8
-Kotlin = 1.8
-Gradle = 4.1.0
-Gradle wrapper = gradle-6.6.1
+ - minSdkVersion = 21
+ - targetSdkVersion = 30
+ - Java = 1.8
+ - Kotlin = 1.8
+ - Gradle = 4.1.0
+ - Gradle wrapper = gradle-6.6.1
 
 
 Add the dependency to your gradle file:
@@ -53,7 +53,7 @@ dependencies {
                     if (hasFocus()) {
                         finishAfterTransition()
                     } else {
-                        binding.materialSearchView.requestFocus()
+                        materialSearchView.requestFocus()
                     }
                 }
             })

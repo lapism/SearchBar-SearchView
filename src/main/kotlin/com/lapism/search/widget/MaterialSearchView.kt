@@ -138,7 +138,6 @@ class MaterialSearchView @JvmOverloads constructor(
             setBackgroundStrokeWidth(a.getInt(R.styleable.MaterialSearchView_search_strokeWidth, 0))
         }
 
-
         val defaultTransitionDuration =
             context.resources.getInteger(R.integer.search_animation_duration)
         setTransitionDuration(
@@ -168,11 +167,6 @@ class MaterialSearchView @JvmOverloads constructor(
         }
 
         a.recycle()
-/*
-        // doplnit atr public, VYDAT VERZI
-
-
-*/
     }
 
     // *********************************************************************************************
