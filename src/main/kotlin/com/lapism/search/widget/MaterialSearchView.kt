@@ -7,12 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.core.content.ContextCompat
 import com.google.android.material.card.MaterialCardView
 import com.lapism.search.R
 import com.lapism.search.internal.SearchLayout
 
 
-@Suppress("MemberVisibilityCanBePrivate", "unused")
 class MaterialSearchView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
@@ -32,16 +32,6 @@ class MaterialSearchView @JvmOverloads constructor(
         inflate(context, R.layout.search_view, this)
         init()
 
-        val a = context.obtainStyledAttributes(
-            attrs, R.styleable.MaterialSearchView, defStyleAttr, defStyleRes
-        )
-        navigationIconSupport =
-            a.getInteger(
-                R.styleable.MaterialSearchView_search_navigation_icon_support,
-                NavigationIconSupport.NONE
-            )
-        a.recycle()
-
         mTransition = LayoutTransition()
         mTransition.enableTransitionType(LayoutTransition.CHANGING)
         mTransition.addTransitionListener(object : LayoutTransition.TransitionListener {
@@ -54,7 +44,6 @@ class MaterialSearchView @JvmOverloads constructor(
                 if (view is MaterialCardView) {
                     if (hasFocus()) {
                         mOnFocusChangeListener?.onFocusChange(true)
-                        mImageViewMenu?.visibility = View.GONE
                         mImageViewMic?.visibility = View.VISIBLE
                     }
                 }
@@ -78,7 +67,6 @@ class MaterialSearchView @JvmOverloads constructor(
                     } else {
                         mOnFocusChangeListener?.onFocusChange(false)
                         mImageViewMic?.visibility = View.GONE
-                        mImageViewMenu?.visibility = View.VISIBLE
                         hideKeyboard()
                     }
                 }
@@ -89,13 +77,102 @@ class MaterialSearchView @JvmOverloads constructor(
         mMaterialCardView?.layoutTransition = mTransition
         mFrameLayout?.layoutTransition = mTransition
 
-        // TODO - MORE ATTRIBUTTES IN THE FUTURE RELEASE
-        setClearIconImageResource(R.drawable.search_ic_outline_clear_24px)
-        elevation = context.resources.getDimensionPixelSize(R.dimen.search_elevation).toFloat()
-        setBackgroundRadius(resources.getDimensionPixelSize(R.dimen.search_radius).toFloat())
-        setTransitionDuration(
-            context.resources.getInteger(R.integer.search_animation_duration).toLong()
+        val a = context.obtainStyledAttributes(
+            attrs, R.styleable.MaterialSearchView, defStyleAttr, defStyleRes
         )
+
+        if (a.hasValue(R.styleable.MaterialSearchView_search_navigationIconSupport)) {
+            navigationIconSupport = a.getInt(
+                R.styleable.MaterialSearchView_search_navigationIconSupport,
+                NavigationIconSupport.NONE
+            )
+        }
+
+        if (a.hasValue(R.styleable.MaterialSearchView_search_navigationIcon)) {
+            setNavigationIconImageDrawable(a.getDrawable(R.styleable.MaterialSearchView_search_navigationIcon))
+        }
+
+        if (a.hasValue(R.styleable.MaterialSearchView_search_clearIcon)) {
+            setClearIconImageDrawable(a.getDrawable(R.styleable.MaterialSearchView_search_clearIcon))
+        } else {
+            setClearIconImageDrawable(
+                ContextCompat.getDrawable(
+                    context,
+                    R.drawable.search_ic_outline_clear_24
+                )
+            )
+        }
+
+        if (a.hasValue(R.styleable.MaterialSearchView_search_micIcon)) {
+            setMicIconImageDrawable(a.getDrawable(R.styleable.MaterialSearchView_search_micIcon))
+        } else {
+            setMicIconImageDrawable(
+                ContextCompat.getDrawable(
+                    context,
+                    R.drawable.search_ic_outline_mic_none_24
+                )
+            )
+        }
+
+        if (a.hasValue(R.styleable.MaterialSearchView_search_dividerColor)) {
+            setDividerColor(a.getInt(R.styleable.MaterialSearchView_search_dividerColor, 0))
+        }
+
+        val defaultShadowColor = ContextCompat.getColor(context, R.color.search_shadow)
+        setShadowColor(
+            a.getInt(
+                R.styleable.MaterialSearchView_search_shadowColor,
+                defaultShadowColor
+            )
+        )
+
+        if (a.hasValue(R.styleable.MaterialSearchView_search_textHint)) {
+            setTextHint(a.getText(R.styleable.MaterialSearchView_search_textHint))
+        }
+
+        if (a.hasValue(R.styleable.MaterialSearchView_search_strokeColor)) {
+            setBackgroundStrokeColor(a.getInt(R.styleable.MaterialSearchView_search_strokeColor, 0))
+        }
+
+        if (a.hasValue(R.styleable.MaterialSearchView_search_strokeWidth)) {
+            setBackgroundStrokeWidth(a.getInt(R.styleable.MaterialSearchView_search_strokeWidth, 0))
+        }
+
+
+        val defaultTransitionDuration =
+            context.resources.getInteger(R.integer.search_animation_duration)
+        setTransitionDuration(
+            a.getInt(
+                R.styleable.MaterialSearchView_search_transitionDuration,
+                defaultTransitionDuration
+            ).toLong()
+        )
+
+        val defaultRadius = context.resources.getDimensionPixelSize(R.dimen.search_radius)
+        setBackgroundRadius(
+            a.getInt(R.styleable.MaterialSearchView_search_radius, defaultRadius).toFloat()
+        )
+
+        val defaultElevation = context.resources.getDimensionPixelSize(R.dimen.search_elevation)
+        elevation =
+            a.getInt(R.styleable.MaterialSearchView_android_elevation, defaultElevation).toFloat()
+
+        val imeOptions = a.getInt(R.styleable.MaterialSearchView_android_imeOptions, -1)
+        if (imeOptions != -1) {
+            setTextImeOptions(imeOptions);
+        }
+
+        val inputType = a.getInt(R.styleable.MaterialSearchView_android_inputType, -1)
+        if (inputType != -1) {
+            setTextInputType(inputType);
+        }
+
+        a.recycle()
+/*
+        // doplnit atr public, VYDAT VERZI
+
+
+*/
     }
 
     // *********************************************************************************************
@@ -157,6 +234,7 @@ class MaterialSearchView @JvmOverloads constructor(
         mTransition.setDuration(duration)
         mSearchAnimationLayout?.layoutTransition = mTransition
         mMaterialCardView?.layoutTransition = mTransition
+        mFrameLayout?.layoutTransition = mTransition
     }
 
 }

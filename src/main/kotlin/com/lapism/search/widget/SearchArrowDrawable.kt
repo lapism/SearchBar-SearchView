@@ -8,6 +8,7 @@ import androidx.appcompat.graphics.drawable.DrawerArrowDrawable
 import androidx.core.content.ContextCompat
 
 
+@Suppress("unused")
 class SearchArrowDrawable constructor(context: Context) : DrawerArrowDrawable(context) {
 
     // *********************************************************************************************

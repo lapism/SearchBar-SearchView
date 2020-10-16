@@ -13,7 +13,6 @@ import android.text.TextUtils
 import android.text.TextWatcher
 import android.util.AttributeSet
 import android.view.View
-import android.view.View.OnFocusChangeListener
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.FrameLayout
@@ -28,7 +27,6 @@ import com.google.android.material.card.MaterialCardView
 import com.lapism.search.R
 
 
-@Suppress("MemberVisibilityCanBePrivate")
 abstract class SearchLayout @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
@@ -37,6 +35,7 @@ abstract class SearchLayout @JvmOverloads constructor(
 ) : FrameLayout(context, attrs, defStyleAttr, defStyleRes), View.OnClickListener {
 
     // *********************************************************************************************
+    // Better way than enum class :-)
     @IntDef(
         NavigationIconSupport.NONE,
         NavigationIconSupport.MENU,
@@ -46,10 +45,10 @@ abstract class SearchLayout @JvmOverloads constructor(
     @Retention(AnnotationRetention.SOURCE)
     annotation class NavigationIconSupport {
         companion object {
-            const val NONE = 1000
-            const val MENU = 1001
-            const val ARROW = 1002
-            const val SEARCH = 1003
+            const val NONE = 0
+            const val MENU = 1
+            const val ARROW = 2
+            const val SEARCH = 3
         }
     }
 
@@ -60,13 +59,12 @@ abstract class SearchLayout @JvmOverloads constructor(
     @Retention(AnnotationRetention.SOURCE)
     internal annotation class Margins {
         companion object {
-            const val NO_FOCUS = 2000
-            const val FOCUS = 2001
+            const val NO_FOCUS = 4
+            const val FOCUS = 5
         }
     }
 
     // *********************************************************************************************
-    protected var mImageViewMenu: ImageView? = null
     protected var mImageViewMic: ImageView? = null
     protected var mRecyclerView: RecyclerView? = null
     protected var mSearchAnimationLayout: LinearLayout? = null
@@ -84,7 +82,6 @@ abstract class SearchLayout @JvmOverloads constructor(
     private var mOnNavigationClickListener: OnNavigationClickListener? = null
     private var mOnMicClickListener: OnMicClickListener? = null
     private var mOnClearClickListener: OnClearClickListener? = null
-    private var mOnMenuClickListener: OnMenuClickListener? = null
 
     // *********************************************************************************************
     @NavigationIconSupport
@@ -102,7 +99,7 @@ abstract class SearchLayout @JvmOverloads constructor(
                     setNavigationIconImageDrawable(
                         ContextCompat.getDrawable(
                             context,
-                            R.drawable.search_ic_outline_menu_24px
+                            R.drawable.search_ic_outline_menu_24
                         )
                     )
                 }
@@ -110,7 +107,7 @@ abstract class SearchLayout @JvmOverloads constructor(
                     setNavigationIconImageDrawable(
                         ContextCompat.getDrawable(
                             context,
-                            R.drawable.search_ic_outline_arrow_back_24px
+                            R.drawable.search_ic_outline_arrow_back_24
                         )
                     )
                 }
@@ -118,7 +115,7 @@ abstract class SearchLayout @JvmOverloads constructor(
                     setNavigationIconImageDrawable(
                         ContextCompat.getDrawable(
                             context,
-                            R.drawable.search_ic_outline_search_24px
+                            R.drawable.search_ic_outline_search_24
                         )
                     )
                 }
@@ -178,23 +175,19 @@ abstract class SearchLayout @JvmOverloads constructor(
 
     // *********************************************************************************************
     protected fun init() {
+        mFrameLayout = findViewById(R.id.search_root)
         mSearchAnimationLayout = findViewById(R.id.search_animation_layout)
-
         mLinearLayout = findViewById(R.id.search_linear_layout)
 
         mImageViewNavigation = findViewById(R.id.search_image_view_navigation)
         mImageViewNavigation?.setOnClickListener(this)
 
         mImageViewMic = findViewById(R.id.search_image_view_mic)
-        mImageViewMic?.visibility = View.GONE
         mImageViewMic?.setOnClickListener(this)
 
         mImageViewClear = findViewById(R.id.search_image_view_clear)
         mImageViewClear?.visibility = View.GONE
         mImageViewClear?.setOnClickListener(this)
-
-        mImageViewMenu = findViewById(R.id.search_image_view_menu)
-        mImageViewMenu?.setOnClickListener(this)
 
         mSearchEditText = findViewById(R.id.search_search_edit_text)
         mSearchEditText?.addTextChangedListener(object : TextWatcher {
@@ -214,7 +207,7 @@ abstract class SearchLayout @JvmOverloads constructor(
             onSubmitQuery()
             return@setOnEditorActionListener true // true
         }
-        mSearchEditText?.onFocusChangeListener = OnFocusChangeListener { _, hasFocus ->
+        mSearchEditText?.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
                 addFocus()
             } else {
@@ -242,17 +235,9 @@ abstract class SearchLayout @JvmOverloads constructor(
 
         mViewShadow = findViewById(R.id.search_view_shadow)
         mViewShadow?.visibility = View.GONE
-        mViewShadow?.setBackgroundColor(
-            ContextCompat.getColor(
-                context,
-                R.color.search_shadow
-            )
-        )
 
         mMaterialCardView = findViewById(R.id.search_material_card_view)
         margins = Margins.NO_FOCUS
-
-        mFrameLayout = findViewById(R.id.search_root)
 
         isClickable = true
         isFocusable = true
@@ -348,35 +333,6 @@ abstract class SearchLayout @JvmOverloads constructor(
 
     fun setClearIconContentDescription(contentDescription: CharSequence) {
         mImageViewClear?.contentDescription = contentDescription
-    }
-
-    // *********************************************************************************************
-    fun setMenuIconImageResource(@DrawableRes resId: Int) {
-        mImageViewMenu?.setImageResource(resId)
-    }
-
-    fun setMenuIconImageDrawable(@Nullable drawable: Drawable?) {
-        mImageViewMenu?.setImageDrawable(drawable)
-    }
-
-    fun setMenuIconColorFilter(color: Int) {
-        mImageViewMenu?.setColorFilter(color)
-    }
-
-    fun setMenuIconColorFilter(color: Int, mode: PorterDuff.Mode) {
-        mImageViewMenu?.setColorFilter(color, mode)
-    }
-
-    fun setMenuIconColorFilter(cf: ColorFilter?) {
-        mImageViewMenu?.colorFilter = cf
-    }
-
-    fun clearMenuIconColorFilter() {
-        mImageViewMenu?.clearColorFilter()
-    }
-
-    fun setMenuIconContentDescription(contentDescription: CharSequence) {
-        mImageViewMenu?.contentDescription = contentDescription
     }
 
     // *********************************************************************************************
@@ -573,10 +529,6 @@ abstract class SearchLayout @JvmOverloads constructor(
         mOnClearClickListener = listener
     }
 
-    fun setOnMenuClickListener(listener: OnMenuClickListener) {
-        mOnMenuClickListener = listener
-    }
-
     // *********************************************************************************************
     fun showKeyboard() {
         if (!isInEditMode) {
@@ -677,12 +629,8 @@ abstract class SearchLayout @JvmOverloads constructor(
 
     override fun onClick(view: View?) {
         if (view === mImageViewNavigation) {
-            if (mSearchEditText?.hasFocus()!!) {
-                mSearchEditText?.clearFocus()
-            } else {
-                if (mOnNavigationClickListener != null) {
-                    mOnNavigationClickListener?.onNavigationClick()
-                }
+            if (mOnNavigationClickListener != null) {
+                mOnNavigationClickListener?.onNavigationClick(mSearchEditText?.hasFocus()!!)
             }
         } else if (view === mImageViewMic) {
             if (mOnMicClickListener != null) {
@@ -694,10 +642,6 @@ abstract class SearchLayout @JvmOverloads constructor(
             }
             if (mOnClearClickListener != null) {
                 mOnClearClickListener?.onClearClick()
-            }
-        } else if (view === mImageViewMenu) {
-            if (mOnMenuClickListener != null) {
-                mOnMenuClickListener?.onMenuClick()
             }
         }
     }
@@ -717,7 +661,7 @@ abstract class SearchLayout @JvmOverloads constructor(
 
     interface OnNavigationClickListener {
 
-        fun onNavigationClick()
+        fun onNavigationClick(hasFocus: Boolean)
     }
 
     interface OnMicClickListener {
@@ -728,11 +672,6 @@ abstract class SearchLayout @JvmOverloads constructor(
     interface OnClearClickListener {
 
         fun onClearClick()
-    }
-
-    interface OnMenuClickListener {
-
-        fun onMenuClick()
     }
 
 }

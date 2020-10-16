@@ -2,12 +2,25 @@
 <resources>
 
     <declare-styleable name="MaterialSearchView">
-        <attr name="search_navigation_icon_support" format="enum">
+        <attr name="search_navigationIconSupport" format="enum">
             <enum name="none" value="1000" />
             <enum name="menu" value="1001" />
             <enum name="arrow" value="1002" />
             <enum name="search" value="1003" />
         </attr>
+        <attr name="search_navigationIcon" format="reference" />
+        <attr name="search_clearIcon" format="reference" />
+        <attr name="search_micIcon" format="reference" />
+        <attr name="search_textHint" format="string" />
+        <attr name="search_strokeColor" format="reference" />
+        <attr name="search_strokeWidth" format="reference" />
+        <attr name="search_dividerColor" format="reference" />
+        <attr name="search_shadowColor" format="reference" />
+        <attr name="search_transitionDuration" format="integer" />
+        <attr name="search_radius" format="integer" />
+        <attr name="android:elevation" />
+        <attr name="android:imeOptions" />
+        <attr name="android:inputType" />
     </declare-styleable>
 
 </resources>

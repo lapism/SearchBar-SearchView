@@ -17,26 +17,24 @@ https://bintray.com/lapism/maven/search
 
 ![Search](https://github.com/lapism/Search/blob/master/images/search.png)
 
-## Donations
-
-`Please support me!`
-
-<a href="https://www.paypal.me/lapism">
-  <img alt="Paypal"
-       src="https://github.com/lapism/search/blob/master/images/paypal.png" />
-</a>
-
 ## Apps with this library
 
 * [LapIcons](https://play.google.com/store/apps/details?id=com.lapism.lapicons)
 
 ## Sdk and usage
-minSdkVersion 21, targetSdkVersion 30, Java 1.8, Kotlin 1.8
+
+minSdkVersion = 21
+targetSdkVersion = 30
+Java = 1.8
+Kotlin = 1.8
+Gradle = 4.1.0
+Gradle wrapper = gradle-6.6.1
+
 
 Add the dependency to your gradle file:
 ```groovy
 dependencies {
-    implementation 'com.lapism:search:2.2.0@aar'
+    implementation 'com.lapism:search:2.3.0@aar'
 }
 ```
 
@@ -51,8 +49,12 @@ dependencies {
 
             navigationIconSupport = SearchLayout.NavigationIconSupport.SEARCH
             setOnNavigationClickListener(object : SearchLayout.OnNavigationClickListener {
-                override fun onNavigationClick() {
-                    materialSearchView.requestFocus()
+                override fun onNavigationClick(hasFocus: Boolean) {
+                    if (hasFocus()) {
+                        finishAfterTransition()
+                    } else {
+                        binding.materialSearchView.requestFocus()
+                    }
                 }
             })
 
@@ -68,22 +70,14 @@ dependencies {
                 }
             })
 
-            setMicIconImageResource(R.drawable.ic_outline_mic_none_24dp)
             setOnMicClickListener(object : SearchLayout.OnMicClickListener {
                 override fun onMicClick() {
-                    if (SearchUtils.isVoiceSearchAvailable(this@MainActivity)) {
+                    if (SearchUtils.isVoiceSearchAvailable(this@SearchActivity)) {
                         SearchUtils.setVoiceSearch(
-                            this@MainActivity,
+                            this@SearchActivity,
                             getString(R.string.speak)
                         )
                     }
-                }
-            })
-
-            setMenuIconImageResource(R.drawable.layer_list_settings)
-            setOnMenuClickListener(object : SearchLayout.OnMenuClickListener {
-                override fun onMenuClick() {
-
                 }
             })
 
@@ -91,16 +85,16 @@ dependencies {
             setBackgroundStrokeWidth(resources.getDimensionPixelSize(R.dimen.search_stroke_width))
             setBackgroundStrokeColor(
                 ContextCompat.getColor(
-                    this@MainActivity,
+                    this@SearchActivity,
                     R.color.divider
                 )
             )
             setOnFocusChangeListener(object : SearchLayout.OnFocusChangeListener {
                 override fun onFocusChange(hasFocus: Boolean) {
-                    if (hasFocus) {
-                        navigationIconSupport = SearchLayout.NavigationIconSupport.ARROW
+                    navigationIconSupport = if (hasFocus) {
+                        SearchLayout.NavigationIconSupport.ARROW
                     } else {
-                        navigationIconSupport = SearchLayout.NavigationIconSupport.SEARCH
+                        SearchLayout.NavigationIconSupport.SEARCH
                     }
                 }
             })
@@ -147,15 +141,33 @@ Also add android:stateListAnimator="@null" to the AppBarLayout.
 
 ### XML attributes
 ```xml
-        <attr name="search_navigation_icon_support" format="enum">
+        <attr name="search_navigationIconSupport" format="enum">
             <enum name="none" value="1000" />
             <enum name="menu" value="1001" />
             <enum name="arrow" value="1002" />
             <enum name="search" value="1003" />
         </attr>
+        <attr name="search_navigationIcon" format="reference" />
+        <attr name="search_clearIcon" format="reference" />
+        <attr name="search_micIcon" format="reference" />
+        <attr name="search_textHint" format="string" />
+        <attr name="search_strokeColor" format="reference" />
+        <attr name="search_strokeWidth" format="reference" />
+        <attr name="search_dividerColor" format="reference" />
+        <attr name="search_shadowColor" format="reference" />
+        <attr name="search_transitionDuration" format="integer" />
+        <attr name="search_radius" format="integer" />
+        <attr name="android:elevation" />
+        <attr name="android:imeOptions" />
+        <attr name="android:inputType" />
 ```
 
 ## Changelog
+**2.3.0**
+- new added XML attributes
+- updated dependencies
+- OnNavigationClickListener.onNavigationClick has ,,hasFocus" parameter
+
 **2.2.0**
 - API 30
 - fixed bottom margin bug with elevation more than 0dp
@@ -182,7 +194,7 @@ Also add android:stateListAnimator="@null" to the AppBarLayout.
 - added public.xml file
 
 **2.0.0**
-- NOT COMPATIBLE WITH 1.0 !!!
+- first release
 - SearchMenu item removed
 - SearchView renamed to MaterialSearchView
 - changed NavigationIconSupport properties
@@ -190,9 +202,6 @@ Also add android:stateListAnimator="@null" to the AppBarLayout.
 - fixed bugs
 - improved open and hide animation
 - new public methods
-
-**1.0.0**
-- first test release
 
 ## Author
 

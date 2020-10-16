@@ -79,14 +79,14 @@
 
                 </FrameLayout>
 
-                <ImageView
+                <!--<ImageView
                     android:id="@+id/search_image_view_menu"
                     android:layout_width="@dimen/search_icon_48"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="@dimen/search_dp_4"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:contentDescription="@null"
-                    android:scaleType="center" />
+                    android:scaleType="center" />-->
 
             </LinearLayout>
 
