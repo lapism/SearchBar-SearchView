@@ -3,10 +3,10 @@
 
     <declare-styleable name="MaterialSearchView">
         <attr name="search_navigationIconSupport" format="enum">
-            <enum name="none" value="1000" />
-            <enum name="menu" value="1001" />
-            <enum name="arrow" value="1002" />
-            <enum name="search" value="1003" />
+            <enum name="none" value="0" />
+            <enum name="menu" value="1" />
+            <enum name="arrow" value="2" />
+            <enum name="search" value="3" />
         </attr>
         <attr name="search_navigationIcon" format="reference" />
         <attr name="search_clearIcon" format="reference" />
