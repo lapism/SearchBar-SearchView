@@ -21,7 +21,7 @@ https://bintray.com/lapism/maven/search
 
 * [LapIcons](https://play.google.com/store/apps/details?id=com.lapism.lapicons)
 
-## Sdk and usage
+## Api
 
 minSdkVersion = 21
 targetSdkVersion = 30
@@ -38,7 +38,7 @@ dependencies {
 }
 ```
 
-## SearchView
+## Usage
 
 ### Code example
 ```java
