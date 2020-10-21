@@ -1,5 +1,3 @@
-@file:Suppress("MemberVisibilityCanBePrivate")
-
 package com.lapism.search.widget
 
 import android.animation.LayoutTransition
