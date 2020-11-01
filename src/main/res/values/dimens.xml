@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <dimen name="search_dp_4">4dp</dimen>
     <dimen name="search_dp_16">16dp</dimen>
     <dimen name="search_sp_16">16sp</dimen>
     <dimen name="search_icon_48">48dp</dimen>

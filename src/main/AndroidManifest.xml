@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.lapism.search">
 
-    <application android:supportsRtl="true"
-        android:autoRevokePermissions="allowed" />
+    <application android:supportsRtl="true" />
 
 </manifest>

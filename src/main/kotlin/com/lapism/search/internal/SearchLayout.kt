@@ -16,7 +16,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.FrameLayout
-import android.widget.ImageView
+import android.widget.ImageButton
 import android.widget.LinearLayout
 import androidx.annotation.*
 import androidx.core.content.ContextCompat
@@ -66,19 +66,18 @@ abstract class SearchLayout @JvmOverloads constructor(
     }
 
     // *********************************************************************************************
-    protected var mImageViewMic: ImageView? = null
+    private var mImageViewMic: ImageButton? = null
     protected var mRecyclerView: RecyclerView? = null
-    protected var mSearchAnimationLayout: LinearLayout? = null
-    protected var mMaterialCardView: MaterialCardView? = null
-    protected var mFrameLayout: FrameLayout? = null
-    protected var mSearchEditText: SearchEditText? = null
+    private var mMaterialCardView: MaterialCardView? = null
+    var mSearchEditText: SearchEditText? = null
     protected var mViewShadow: View? = null
     protected var mViewDivider: View? = null
+    protected var mViewAnim: View? = null
     protected var mOnFocusChangeListener: OnFocusChangeListener? = null
 
     private var mLinearLayout: LinearLayout? = null
-    private var mImageViewNavigation: ImageView? = null
-    private var mImageViewClear: ImageView? = null
+    private var mImageViewNavigation: ImageButton? = null
+    private var mImageViewClear: ImageButton? = null
     private var mOnQueryTextListener: OnQueryTextListener? = null
     private var mOnNavigationClickListener: OnNavigationClickListener? = null
     private var mOnMicClickListener: OnMicClickListener? = null
@@ -176,8 +175,6 @@ abstract class SearchLayout @JvmOverloads constructor(
 
     // *********************************************************************************************
     protected fun init() {
-        mFrameLayout = findViewById(R.id.search_root)
-        mSearchAnimationLayout = findViewById(R.id.search_animation_layout)
         mLinearLayout = findViewById(R.id.search_linear_layout)
 
         mImageViewNavigation = findViewById(R.id.search_image_view_navigation)
@@ -231,11 +228,14 @@ abstract class SearchLayout @JvmOverloads constructor(
             }
         })
 
+        mViewShadow = findViewById(R.id.search_view_shadow)
+        mViewShadow?.visibility = View.GONE
+
         mViewDivider = findViewById(R.id.search_view_divider)
         mViewDivider?.visibility = View.GONE
 
-        mViewShadow = findViewById(R.id.search_view_shadow)
-        mViewShadow?.visibility = View.GONE
+        mViewAnim = findViewById(R.id.search_view_anim)
+        mViewAnim?.visibility = View.GONE
 
         mMaterialCardView = findViewById(R.id.search_material_card_view)
         margins = Margins.NO_FOCUS

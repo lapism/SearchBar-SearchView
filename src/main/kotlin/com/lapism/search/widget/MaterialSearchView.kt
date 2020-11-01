@@ -1,5 +1,3 @@
-@file:Suppress("MemberVisibilityCanBePrivate")
-
 package com.lapism.search.widget
 
 import android.animation.LayoutTransition
@@ -10,12 +8,11 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
-import com.google.android.material.card.MaterialCardView
 import com.lapism.search.R
 import com.lapism.search.internal.SearchLayout
 
 
-@Suppress("unused")
+@Suppress("unused", "MemberVisibilityCanBePrivate")
 class MaterialSearchView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
@@ -25,60 +22,16 @@ class MaterialSearchView @JvmOverloads constructor(
 
     // *********************************************************************************************
     private var mBehavior: CoordinatorLayout.Behavior<*> = SearchBehavior<MaterialSearchView>()
+    private var mTransition: LayoutTransition? = null
     private var mStrokeWidth: Int = 0
-    private var mElevation: Float = 0f
     private var mRadius: Float = 0f
-    private var mTransition: LayoutTransition
+    private var mElevation: Float = 0f
 
     // *********************************************************************************************
     init {
         inflate(context, R.layout.search_view, this)
         init()
-
-        mTransition = LayoutTransition()
-        mTransition.enableTransitionType(LayoutTransition.CHANGING)
-        mTransition.addTransitionListener(object : LayoutTransition.TransitionListener {
-            override fun startTransition(
-                transition: LayoutTransition?,
-                container: ViewGroup?,
-                view: View?,
-                transitionType: Int
-            ) {
-                if (view is MaterialCardView) {
-                    if (hasFocus()) {
-                        mOnFocusChangeListener?.onFocusChange(true)
-                        mImageViewMic?.visibility = View.VISIBLE
-                    }
-                }
-            }
-
-            override fun endTransition(
-                transition: LayoutTransition?,
-                container: ViewGroup?,
-                view: View?,
-                transitionType: Int
-            ) {
-                if (view is MaterialCardView) {
-                    if (hasFocus()) {
-                        setBackgroundRadius(
-                            resources.getDimensionPixelSize(R.dimen.search_radius_focus).toFloat()
-                        )
-                        showKeyboard()
-                        mSearchAnimationLayout?.layoutTransition = null
-                        mMaterialCardView?.layoutTransition = null
-                        mFrameLayout?.layoutTransition = null
-                    } else {
-                        mOnFocusChangeListener?.onFocusChange(false)
-                        mImageViewMic?.visibility = View.GONE
-                        hideKeyboard()
-                    }
-                }
-            }
-        })
-
-        mSearchAnimationLayout?.layoutTransition = mTransition
-        mMaterialCardView?.layoutTransition = mTransition
-        mFrameLayout?.layoutTransition = mTransition
+        setTransition()
 
         val a = context.obtainStyledAttributes(
             attrs, R.styleable.MaterialSearchView, defStyleAttr, defStyleRes
@@ -174,48 +127,56 @@ class MaterialSearchView @JvmOverloads constructor(
 
     // *********************************************************************************************
     override fun addFocus() {
+        mOnFocusChangeListener?.onFocusChange(true)
+        showKeyboard()
+
         mStrokeWidth = getBackgroundStrokeWidth()
-        mElevation = elevation
         mRadius = getBackgroundRadius()
+        mElevation = elevation
+
+        setBackgroundStrokeWidth(context.resources.getDimensionPixelSize(R.dimen.search_stroke_width_focus))
+        setBackgroundRadius(resources.getDimensionPixelSize(R.dimen.search_radius_focus).toFloat())
+        elevation =
+            context.resources.getDimensionPixelSize(R.dimen.search_elevation_focus).toFloat()
 
         val left = context.resources.getDimensionPixelSize(R.dimen.search_dp_16)
         val params = mSearchEditText?.layoutParams as LinearLayout.LayoutParams
         params.setMargins(left, 0, 0, 0)
         mSearchEditText?.layoutParams = params
 
-        elevation =
-            context.resources.getDimensionPixelSize(R.dimen.search_elevation_focus).toFloat()
-        setBackgroundStrokeWidth(context.resources.getDimensionPixelSize(R.dimen.search_stroke_width_focus))
-
         margins = Margins.FOCUS
-
         setLayoutHeight(context.resources.getDimensionPixelSize(R.dimen.search_layout_height_focus))
 
         mViewShadow?.visibility = View.VISIBLE
+
         mViewDivider?.visibility = View.VISIBLE
+        mViewAnim?.visibility = View.VISIBLE
         mRecyclerView?.visibility = View.VISIBLE
+
+        // layoutTransition = null
     }
 
     override fun removeFocus() {
-        mViewShadow?.visibility = View.GONE
+        // layoutTransition = mTransition
 
-        mSearchAnimationLayout?.layoutTransition = mTransition
-        mMaterialCardView?.layoutTransition = mTransition
-        mFrameLayout?.layoutTransition = mTransition
+        mOnFocusChangeListener?.onFocusChange(false)
+        hideKeyboard()
 
         val params = mSearchEditText?.layoutParams as LinearLayout.LayoutParams
         params.setMargins(0, 0, 0, 0)
         mSearchEditText?.layoutParams = params
 
-        elevation = mElevation
         setBackgroundStrokeWidth(mStrokeWidth)
         setBackgroundRadius(mRadius)
-
-        margins = Margins.NO_FOCUS
+        elevation = mElevation
 
         setLayoutHeight(context.resources.getDimensionPixelSize(R.dimen.search_layout_height))
+        margins = Margins.NO_FOCUS
+
+        mViewShadow?.visibility = View.GONE
 
         mRecyclerView?.visibility = View.GONE
+        mViewAnim?.visibility = View.GONE
         mViewDivider?.visibility = View.GONE
     }
 
@@ -228,10 +189,32 @@ class MaterialSearchView @JvmOverloads constructor(
     }
 
     fun setTransitionDuration(duration: Long) {
-        mTransition.setDuration(duration)
-        mSearchAnimationLayout?.layoutTransition = mTransition
-        mMaterialCardView?.layoutTransition = mTransition
-        mFrameLayout?.layoutTransition = mTransition
+        mTransition?.setDuration(duration)
+        layoutTransition = mTransition
+    }
+
+    private fun setTransition() {
+        mTransition = LayoutTransition()
+        mTransition?.enableTransitionType(LayoutTransition.CHANGING)
+        mTransition?.addTransitionListener(object : LayoutTransition.TransitionListener {
+            override fun startTransition(
+                transition: LayoutTransition?,
+                container: ViewGroup?,
+                view: View?,
+                transitionType: Int
+            ) {
+
+            }
+
+            override fun endTransition(
+                transition: LayoutTransition?,
+                container: ViewGroup?,
+                view: View?,
+                transitionType: Int
+            ) {
+
+            }
+        })
     }
 
 }

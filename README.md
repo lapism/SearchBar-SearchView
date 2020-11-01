@@ -28,13 +28,12 @@ https://bintray.com/lapism/maven/search
  - Java = 1.8
  - Kotlin = 1.8
  - Gradle = 4.1.0
- - Gradle wrapper = gradle-6.6.1
 
 
 Add the dependency to your gradle file:
 ```groovy
 dependencies {
-    implementation 'com.lapism:search:2.3.0@aar'
+    implementation 'com.lapism:search:2.5.0@aar'
 }
 ```
 
@@ -163,6 +162,10 @@ Also add android:stateListAnimator="@null" to the AppBarLayout.
 ```
 
 ## Changelog
+**2.4.0**
+- updated dependencies
+- improved transition animation
+
 **2.3.0**
 - new added XML attributes
 - updated dependencies
