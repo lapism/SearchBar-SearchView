@@ -33,7 +33,7 @@ https://bintray.com/lapism/maven/search
 Add the dependency to your gradle file:
 ```groovy
 dependencies {
-    implementation 'com.lapism:search:2.5.0@aar'
+    implementation 'com.lapism:search:2.4.0@aar'
 }
 ```
 
