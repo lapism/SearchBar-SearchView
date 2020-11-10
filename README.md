@@ -29,17 +29,16 @@ https://bintray.com/lapism/maven/search
  - Kotlin = 1.8
  - Gradle = 4.1.0
 
-
 Add the dependency to your gradle file:
 ```groovy
 dependencies {
-    implementation 'com.lapism:search:2.4.0@aar'
+    implementation 'com.lapism:search:2.4.1@aar'
 }
 ```
 
 ## Usage
 
-### Code example
+### Code
 ```java
         val materialSearchView = findViewById<MaterialSearchView>(R.id.materialSearchView)
         materialSearchView.apply {
@@ -100,7 +99,9 @@ dependencies {
         }
 ```
 
-### Layout example
+Also you can use classes SearchBehavior and SearchArrowDrawable.
+
+### Layout
 It must be in the CoordinatorLayout.
 Also add android:stateListAnimator="@null" to the AppBarLayout.
 
@@ -162,6 +163,10 @@ Also add android:stateListAnimator="@null" to the AppBarLayout.
 ```
 
 ## Changelog
+**2.4.1**
+- changed STATE_HAMBURGER to MENU in SearchArrowDrawable
+- changed STATE_ARROW to ARROW in SearchArrowDrawable
+
 **2.4.0**
 - updated dependencies
 - improved transition animation

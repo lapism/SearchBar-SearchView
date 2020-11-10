@@ -15,33 +15,29 @@ class SearchArrowDrawable constructor(context: Context) : DrawerArrowDrawable(co
     var position: Float
         get() = progress
         set(position) {
-            if (position == STATE_ARROW) {
-                setVerticalMirror(true)
-            } else if (position == STATE_HAMBURGER) {
-                setVerticalMirror(false)
-            }
             progress = position
         }
 
     // *********************************************************************************************
     init {
-        color = ContextCompat.getColor(context, android.R.color.black)
+        color = ContextCompat.getColor(context, android.R.color.white)
+        // TODO android:tint="?attr/colorControlNormal"etColorFilter, check vetrical mirror
     }
 
     // *********************************************************************************************
     fun animate(state: Float, duration: Long) {
-        val anim: ObjectAnimator = if (state == STATE_ARROW) {
+        val anim: ObjectAnimator = if (state == ARROW) {
             ObjectAnimator.ofFloat(
                 this,
                 PROGRESS,
-                STATE_HAMBURGER,
+                MENU,
                 state
             )
         } else {
             ObjectAnimator.ofFloat(
                 this,
                 PROGRESS,
-                STATE_ARROW,
+                ARROW,
                 state
             )
         }
@@ -53,8 +49,8 @@ class SearchArrowDrawable constructor(context: Context) : DrawerArrowDrawable(co
     // *********************************************************************************************
     companion object {
 
-        const val STATE_HAMBURGER = 0.0f
-        const val STATE_ARROW = 1.0f
+        const val MENU = 0.0f
+        const val ARROW = 1.0f
 
         private val PROGRESS =
             object : Property<SearchArrowDrawable, Float>(Float::class.java, "progress") {
