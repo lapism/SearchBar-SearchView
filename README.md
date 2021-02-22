@@ -1,7 +1,5 @@
-[ ![Download](https://api.bintray.com/packages/lapism/maven/search/images/download.svg) ](https://bintray.com/lapism/maven/search/_latestVersion)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 ![API](https://img.shields.io/badge/API-21%2B-brightgreen.svg?style=flat)
-
 
 # Search
  - Material Design Search component for Android
@@ -10,10 +8,7 @@
  - Kotlin
 
 Material Design pattern:  
-https://material.io/design/navigation/search.html  
-
-Versions history:  
-https://bintray.com/lapism/maven/search
+https://material.io/design/navigation/search.html
 
 ![Search](https://github.com/lapism/Search/blob/master/images/search.png)
 
@@ -31,9 +26,7 @@ https://bintray.com/lapism/maven/search
 
 Add the dependency to your gradle file:
 ```groovy
-dependencies {
-    implementation 'com.lapism:search:2.4.1@aar'
-}
+removed from jCenter
 ```
 
 ## Usage
