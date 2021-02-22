@@ -10,7 +10,7 @@
 Material Design pattern:  
 https://material.io/design/navigation/search.html
 
-![Search](https://github.com/lapism/Search/blob/master/images/search.png)
+![Search](https://github.com/lapism/Search/blob/master_v1/images/search.png)
 
 ## Apps with this library
 
@@ -159,50 +159,6 @@ Also add android:stateListAnimator="@null" to the AppBarLayout.
 **2.4.1**
 - changed STATE_HAMBURGER to MENU in SearchArrowDrawable
 - changed STATE_ARROW to ARROW in SearchArrowDrawable
-
-**2.4.0**
-- updated dependencies
-- improved transition animation
-
-**2.3.0**
-- new added XML attributes
-- updated dependencies
-- OnNavigationClickListener.onNavigationClick has ,,hasFocus" parameter
-
-**2.2.0**
-- API 30
-- fixed bottom margin bug with elevation more than 0dp
-- dependencies update
-- fixed transition animation on API 30
-
-**2.1.3**
-- margin null type
-
-**2.1.2**
-- fixed transition animation
-
-**2.1.1**
-- fixed elevation bug in CoordinatorLayout
-- SearchBehavior Z now depends on LinearLayout and BottomNavigationView :-)
-
-**2.1.0**
-- fixed focus animation
-- small improvements
-- fixed bugs
-- SearchBehavior Z now depends on AppBarLayout, LinearLayout and BottomNavigationView
-- added public method MaterialSearchView.setTransitionDuration
-- added public method MaterialSearchView.setClearFocusOnBackPressed
-- added public.xml file
-
-**2.0.0**
-- first release
-- SearchMenu item removed
-- SearchView renamed to MaterialSearchView
-- changed NavigationIconSupport properties
-- NavigationIconSupport properties moved to SearchLayout
-- fixed bugs
-- improved open and hide animation
-- new public methods
 
 ## Author
 
