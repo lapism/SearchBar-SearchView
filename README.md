@@ -1,6 +1,8 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 ![API](https://img.shields.io/badge/API-21%2B-brightgreen.svg?style=flat)
 
+NEXT VERSION WILL BE AS MAVENCENTRAL DEPENDENCY.
+
 # Search
  - Material Design Search component for Android
  - Last Google Material Design
@@ -22,7 +24,6 @@ https://material.io/design/navigation/search.html
  - targetSdkVersion = 30
  - Java = 1.8
  - Kotlin = 1.8
- - Gradle = 4.1.0
 
 Add the dependency to your gradle file:
 ```groovy
